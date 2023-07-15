@@ -19,7 +19,7 @@ lang.custom_attach(calculate_delta,
 nacs = pysat.Instrument('de2', 'nacs', use_header=True, strict_time_flag=False,
                         orbit_info=orbit_info)
 nacs.custom_attach(calculate_delta,
-                   kwargs={'labels': ['O_density', 'N2_density'],
+                   kwargs={'labels': ['O_density', 'N2_density', 'Ar_density'],
                            'normalize': True})
 
 rpa = pysat.Instrument('de2', 'rpa', use_header=True, strict_time_flag=False)
@@ -29,7 +29,7 @@ rpa.custom_attach(calculate_delta,
 rpa.custom_attach(calculate_delta,
                   kwargs={'labels': ['x', 'y', 'z'],
                           'normalize': False})
-doy = 25
+doy = 22
 lang.load(1983, doy)
 nacs.load(1983, doy)
 rpa.load(1983, doy)
@@ -47,9 +47,10 @@ for orbit in orbits:
         fig = plt.figure(figsize=[14, 6])
         plt.plot(lang['delta_plasmaDensity_norm'][t0:t1],
                  label='LANG: delta Ne')
-        plt.plot(rpa['delta_ionDensity_norm'][t0:t1], label='RPA: delta Ni')
-        plt.plot(nacs['delta_O_density_norm'][t0:t1], label='NACS: delta O')
+        plt.plot(rpa['delta_ionDensity_norm'][t0:t1], '--', label='RPA: delta Ni')
+        plt.plot(nacs['delta_O_density_norm'][t0:t1], '--', label='NACS: delta O')
         plt.plot(nacs['delta_N2_density_norm'][t0:t1], label='NACS: delta N2')
+        plt.plot(nacs['delta_Ar_density_norm'][t0:t1], label='NACS: delta Ar')
         plt.legend()
         plt.grid()
         plt.ylim([-0.5, 0.5])
