@@ -40,15 +40,16 @@ plt.close('all')
 for orbit in orbits:
     # Choose orbit number and low altitudes
     ind = (nacs['OrbitNumber'] == orbit) * (nacs['alt'] < 400)
-    if sum(ind)  > 100:
+    if sum(ind) > 100:
         t0 = nacs.index[ind][0]
         t1 = nacs.index[ind][-1]
 
         fig = plt.figure(figsize=[14, 6])
-        plt.plot(lang['delta_plasmaDensity_norm'][t0:t1],
+        plt.plot(lang['delta_plasmaDensity_norm'][t0:t1], '--',
                  label='LANG: delta Ne')
-        plt.plot(rpa['delta_ionDensity_norm'][t0:t1], '--', label='RPA: delta Ni')
-        plt.plot(nacs['delta_O_density_norm'][t0:t1], '--', label='NACS: delta O')
+        plt.plot(rpa['delta_ionDensity_norm'][t0:t1], '--',
+                 label='RPA: delta Ni')
+        plt.plot(nacs['delta_O_density_norm'][t0:t1], label='NACS: delta O')
         plt.plot(nacs['delta_N2_density_norm'][t0:t1], label='NACS: delta N2')
         plt.plot(nacs['delta_Ar_density_norm'][t0:t1], label='NACS: delta Ar')
         plt.legend()
